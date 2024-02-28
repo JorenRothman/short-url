@@ -13,6 +13,7 @@ export const env = createEnv({
         DB_USER: z.string(),
         DB_PASSWORD: z.string(),
         DB_NAME: z.string(),
+        DB_PORT: z.number(),
         DB_CONNECTION_URI: z.string(),
     },
     clientPrefix: 'PUBLIC_',
