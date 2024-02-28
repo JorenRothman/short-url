@@ -5,11 +5,18 @@ CREATE TABLE `sessions` (
 	CONSTRAINT `sessions_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
-CREATE TABLE `users` (
+CREATE TABLE `urls` (
 	`id` bigint AUTO_INCREMENT NOT NULL,
-	`username` varchar(32),
-	`password` varchar(256),
-	`timestamp` timestamp DEFAULT CURRENT_TIMESTAMP,
+	`url` varchar(256) NOT NULL,
+	`slug` varchar(32) NOT NULL,
+	CONSTRAINT `urls_id` PRIMARY KEY(`id`),
+	CONSTRAINT `urls_slug_unique` UNIQUE(`slug`)
+);
+--> statement-breakpoint
+CREATE TABLE `users` (
+	`id` varchar(255) NOT NULL,
+	`username` varchar(32) NOT NULL,
+	`password` varchar(256) NOT NULL,
 	CONSTRAINT `users_id` PRIMARY KEY(`id`),
 	CONSTRAINT `users_username_unique` UNIQUE(`username`)
 );
