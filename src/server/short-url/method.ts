@@ -4,13 +4,14 @@ import { urls } from '@/schema';
 import { db } from '@/server/db';
 import { eq } from 'drizzle-orm';
 import { generateId } from 'lucia';
+import { cache } from 'react';
 import z from 'zod';
 
-export async function getAll() {
+export const getAll = cache(async function () {
     const data = await db.select().from(urls);
 
     return data;
-}
+});
 
 export async function createShortURL(url: string) {
     const schema = z.string().url();
@@ -58,8 +59,8 @@ export async function deleteURL(slug: string) {
     }
 }
 
-export async function findBySlug(slug: string) {
+export const findBySlug = cache(async function (slug: string) {
     const data = await db.select().from(urls).where(eq(urls.slug, slug));
 
     return data[0];
-}
+});
