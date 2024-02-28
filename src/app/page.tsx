@@ -4,8 +4,6 @@ import { validateRequest } from '@/server/auth/methods';
 import { getAll } from '@/server/short-url/method';
 import { redirect } from 'next/navigation';
 
-const dynamic = 'force-dynamic';
-
 export default async function Home() {
     const { user } = await validateRequest();
 
