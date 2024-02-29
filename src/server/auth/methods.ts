@@ -132,3 +132,24 @@ export const validateRequest = cache(
         return result;
     }
 );
+
+export async function logout() {
+    const cookieHeader = cookies().get(lucia.sessionCookieName)?.name;
+    const sessionID = cookies().get(lucia.sessionCookieName)?.value;
+
+    const session = lucia.readSessionCookie(cookieHeader ?? '');
+
+    console.log(session);
+
+    if (sessionID) {
+        await lucia.invalidateSession(sessionID);
+    }
+
+    const sessionCookie = lucia.createBlankSessionCookie();
+
+    cookies().set(
+        sessionCookie.name,
+        sessionCookie.value,
+        sessionCookie.attributes
+    );
+}
