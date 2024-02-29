@@ -24,7 +24,7 @@ export default async function Home() {
     });
 
     return (
-        <main className="max-w-5xl w-full mx-auto my-24">
+        <main className="container mx-auto py-24">
             <HydrationBoundary state={dehydrate(queryClient)}>
                 <Table />
             </HydrationBoundary>

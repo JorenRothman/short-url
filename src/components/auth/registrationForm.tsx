@@ -44,11 +44,8 @@ export default function RegistrationForm() {
     }
 
     return (
-        <div className="flex flex-col gap-4 w-full items-center">
-            <form
-                onSubmit={onSubmit}
-                className="flex flex-col max-w-xl gap-4 w-full p-12"
-            >
+        <div className="flex flex-col gap-4 max-w-xl w-full items-center">
+            <form onSubmit={onSubmit} className="flex flex-col gap-4 w-full">
                 <h1 className="text-2xl">Register</h1>
                 <Input
                     type="text"
