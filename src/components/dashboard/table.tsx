@@ -4,20 +4,17 @@ import { columns } from '@/components/dashboard/table-urls/columns';
 import { DataTable } from '@/components/dashboard/table-urls/data-table';
 import { deleteURL, getAll } from '@/server/short-url/method';
 import type { URL } from '@/types';
-import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
-type Props = {
-    data: URL[];
-};
-
-export default function Table(props: Props) {
-    const { data } = props;
-
+export default function Table() {
     const query = useQuery({
         queryKey: ['urls'],
         queryFn: () => getAll(),
-        initialData: data,
     });
+
+    if (!query.data) {
+        return null;
+    }
 
     return (
         <div>

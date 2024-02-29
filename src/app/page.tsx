@@ -2,6 +2,11 @@ import Create from '@/components/dashboard/create';
 import Table from '@/components/dashboard/table';
 import { validateRequest } from '@/server/auth/methods';
 import { getAll } from '@/server/short-url/method';
+import {
+    HydrationBoundary,
+    QueryClient,
+    dehydrate,
+} from '@tanstack/react-query';
 import { redirect } from 'next/navigation';
 
 export default async function Home() {
@@ -11,11 +16,18 @@ export default async function Home() {
         redirect('/login');
     }
 
-    const urls = await getAll();
+    const queryClient = new QueryClient();
+
+    await queryClient.prefetchQuery({
+        queryKey: ['urls'],
+        queryFn: getAll,
+    });
 
     return (
         <main className="max-w-5xl w-full mx-auto my-24">
-            <Table data={urls} />
+            <HydrationBoundary state={dehydrate(queryClient)}>
+                <Table />
+            </HydrationBoundary>
             <Create />
         </main>
     );
