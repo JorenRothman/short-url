@@ -1,3 +1,5 @@
+import million from 'million/compiler';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     webpack: (config) => {
@@ -6,4 +8,11 @@ const nextConfig = {
     },
 };
 
-export default nextConfig;
+const millionConfig = {
+    auto: {
+        rsc: true,
+        mute: true,
+    },
+};
+
+export default million.next(nextConfig, millionConfig);
