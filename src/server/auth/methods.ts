@@ -1,6 +1,6 @@
 'use server';
 import { users } from '@/schema';
-import { connection, db } from '@/server/db';
+import { db } from '@/server/db';
 import { eq } from 'drizzle-orm';
 import { generateId, Session, type User } from 'lucia';
 import { cookies } from 'next/headers';
@@ -39,8 +39,6 @@ export async function createUser(iUsername: string, iPassword: string) {
             password: hashedPassword,
         });
 
-        connection.end();
-
         return {
             success: true,
             userID,
@@ -62,8 +60,6 @@ export async function loginUser(username: string, password: string) {
         .select()
         .from(users)
         .where(eq(users.username, username));
-
-    connection.end();
 
     const user = result[0];
 
@@ -142,8 +138,6 @@ export async function logout() {
     const sessionID = cookies().get(lucia.sessionCookieName)?.value;
 
     const session = lucia.readSessionCookie(cookieHeader ?? '');
-
-    console.log(session);
 
     if (sessionID) {
         await lucia.invalidateSession(sessionID);
