@@ -1,11 +1,4 @@
-import { sql } from 'drizzle-orm';
-import {
-    bigint,
-    datetime,
-    mysqlTable,
-    timestamp,
-    varchar,
-} from 'drizzle-orm/mysql-core';
+import { bigint, datetime, mysqlTable, varchar } from 'drizzle-orm/mysql-core';
 
 export const urls = mysqlTable('urls', {
     id: bigint('id', { mode: 'number' }).primaryKey().autoincrement(),

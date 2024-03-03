@@ -1,6 +1,6 @@
 'use server';
 import { users } from '@/schema';
-import { getDB } from '@/server/db';
+import { connection, db } from '@/server/db';
 import { eq } from 'drizzle-orm';
 import { generateId, Session, type User } from 'lucia';
 import { cookies } from 'next/headers';
@@ -33,8 +33,6 @@ export async function createUser(iUsername: string, iPassword: string) {
     const userID = generateId(15);
 
     try {
-        const { db, connection } = getDB();
-
         await db.insert(users).values({
             id: userID,
             username: username.data,
@@ -60,8 +58,6 @@ export async function createUser(iUsername: string, iPassword: string) {
 }
 
 export async function loginUser(username: string, password: string) {
-    const { db, connection } = getDB();
-
     const result = await db
         .select()
         .from(users)
