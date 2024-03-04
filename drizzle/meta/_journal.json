@@ -8,6 +8,13 @@
       "when": 1709134484814,
       "tag": "0000_strange_beyonder",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1709586270326,
+      "tag": "0001_sharp_sugar_man",
+      "breakpoints": true
     }
   ]
 }
