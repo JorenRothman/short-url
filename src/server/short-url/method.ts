@@ -91,3 +91,12 @@ export const findBySlug = cache(async function (slug: string) {
 
   return data[0];
 });
+
+export const incrementCount = cache(async function (slug: string) {
+  const data = await findBySlug(slug);
+
+  await db
+    .update(urls)
+    .set({ count: data.count + 1 })
+    .where(eq(urls.slug, slug));
+});

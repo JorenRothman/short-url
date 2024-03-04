@@ -4,6 +4,7 @@ export const urls = mysqlTable("urls", {
   id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
   url: varchar("url", { length: 256 }).notNull(),
   slug: varchar("slug", { length: 32 }).unique().notNull(),
+  count: bigint("count", { mode: "number" }).notNull().default(0),
   userId: varchar("user_id", { length: 255 })
     .notNull()
     .references(() => users.id),

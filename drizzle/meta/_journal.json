@@ -15,6 +15,13 @@
       "when": 1709586270326,
       "tag": "0001_sharp_sugar_man",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1709588434763,
+      "tag": "0002_abnormal_rocket_raccoon",
+      "breakpoints": true
     }
   ]
 }
