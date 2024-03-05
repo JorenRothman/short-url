@@ -63,7 +63,7 @@ export default function Create() {
     }
 
     return (
-        <div className="my-6">
+        <div className="my-8">
             <Drawer>
                 <DrawerTrigger asChild>
                     <Button>Create a Shortened URL</Button>

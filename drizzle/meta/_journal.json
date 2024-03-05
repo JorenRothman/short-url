@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1709134484814,
-      "tag": "0000_strange_beyonder",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1709586270326,
-      "tag": "0001_sharp_sugar_man",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1709588434763,
-      "tag": "0002_abnormal_rocket_raccoon",
+      "when": 1709670641338,
+      "tag": "0000_numerous_millenium_guard",
       "breakpoints": true
     }
   ]

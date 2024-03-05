@@ -21,8 +21,6 @@ export const getAll = cache(async function () {
 });
 
 export async function createShortURL(url: string) {
-    const schema = z.string().url();
-    const result = schema.safeParse(url);
     const user = await getUser();
 
     if (!user) {
@@ -32,10 +30,12 @@ export async function createShortURL(url: string) {
         };
     }
 
+    const result = z.string().url().max(100).safeParse(url);
+
     if (!result.success) {
         return {
             success: false,
-            error: "Invalid URL",
+            error: "Invalid URL or URL is too long (100 characters max)",
         };
     }
 

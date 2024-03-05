@@ -2,7 +2,7 @@
 import { users } from "@/schema";
 import { db } from "@/server/db";
 import { eq } from "drizzle-orm";
-import { generateId, Session, type User } from "lucia";
+import { generateId } from "lucia";
 import { cookies } from "next/headers";
 import { Argon2id } from "oslo/password";
 import { cache } from "react";
@@ -10,12 +10,12 @@ import z from "zod";
 import { lucia } from "@/server/auth/config";
 
 export async function createUser(iUsername: string, iPassword: string) {
-    const username = z.string().min(6).safeParse(iUsername);
+    const username = z.string().min(6).max(32).safeParse(iUsername);
 
     if (!username.success) {
         return {
             success: false,
-            error: "Username must be at least 6 characters",
+            error: "Username must be between 6 and 32 characters",
         };
     }
 
@@ -30,7 +30,7 @@ export async function createUser(iUsername: string, iPassword: string) {
 
     const hashedPassword = await new Argon2id().hash(password.data);
 
-    const userID = generateId(15);
+    const userID = generateId(16);
 
     try {
         await db.insert(users).values({
@@ -123,8 +123,6 @@ export const getUser = cache(async () => {
 export async function logout() {
     const cookieHeader = cookies().get(lucia.sessionCookieName)?.name;
     const sessionID = cookies().get(lucia.sessionCookieName)?.value;
-
-    const session = lucia.readSessionCookie(cookieHeader ?? "");
 
     if (sessionID) {
         await lucia.invalidateSession(sessionID);

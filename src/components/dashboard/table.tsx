@@ -18,7 +18,7 @@ export default function Table() {
 
     return (
         <div>
-            <h1 className="mb-6 text-2xl">Shortened URLs</h1>
+            <h1 className="mb-6 text-3xl font-medium">URL&apos;s</h1>
             <DataTable columns={columns} data={query.data} />
         </div>
     );
