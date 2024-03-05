@@ -9,94 +9,94 @@ import { cache } from "react";
 import z from "zod";
 
 export const getAll = cache(async function () {
-  const user = await getUser();
+    const user = await getUser();
 
-  if (!user) {
-    return [];
-  }
+    if (!user) {
+        return [];
+    }
 
-  const data = await db.select().from(urls).where(eq(urls.userId, user.id));
+    const data = await db.select().from(urls).where(eq(urls.userId, user.id));
 
-  return data;
+    return data;
 });
 
 export async function createShortURL(url: string) {
-  const schema = z.string().url();
-  const result = schema.safeParse(url);
-  const user = await getUser();
+    const schema = z.string().url();
+    const result = schema.safeParse(url);
+    const user = await getUser();
 
-  if (!user) {
-    return {
-      success: false,
-      error: "User not found",
-    };
-  }
+    if (!user) {
+        return {
+            success: false,
+            error: "User not found",
+        };
+    }
 
-  if (!result.success) {
-    return {
-      success: false,
-      error: "Invalid URL",
-    };
-  }
+    if (!result.success) {
+        return {
+            success: false,
+            error: "Invalid URL",
+        };
+    }
 
-  const randomID = generateId(8);
+    const randomID = generateId(8);
 
-  try {
-    await db.insert(urls).values({
-      url: result.data,
-      slug: randomID,
-      userId: user.id,
-    });
+    try {
+        await db.insert(urls).values({
+            url: result.data,
+            slug: randomID,
+            userId: user.id,
+        });
 
-    return {
-      success: true,
-      slug: randomID,
-    };
-  } catch {
-    return {
-      success: false,
-      error: "Failed to create short URL",
-    };
-  }
+        return {
+            success: true,
+            slug: randomID,
+        };
+    } catch {
+        return {
+            success: false,
+            error: "Failed to create short URL",
+        };
+    }
 }
 
 export async function deleteURL(slug: string) {
-  const user = await getUser();
+    const user = await getUser();
 
-  if (!user) {
-    return {
-      success: false,
-      error: "User not found",
-    };
-  }
+    if (!user) {
+        return {
+            success: false,
+            error: "User not found",
+        };
+    }
 
-  try {
-    await db
-      .delete(urls)
-      .where(and(eq(urls.slug, slug), eq(urls.userId, user.id)));
+    try {
+        await db
+            .delete(urls)
+            .where(and(eq(urls.slug, slug), eq(urls.userId, user.id)));
 
-    return {
-      success: true,
-    };
-  } catch {
-    return {
-      success: false,
-      error: "Failed to delete short URL",
-    };
-  }
+        return {
+            success: true,
+        };
+    } catch {
+        return {
+            success: false,
+            error: "Failed to delete short URL",
+        };
+    }
 }
 
 export const findBySlug = cache(async function (slug: string) {
-  const data = await db.select().from(urls).where(eq(urls.slug, slug));
+    const data = await db.select().from(urls).where(eq(urls.slug, slug));
 
-  return data[0];
+    return data[0];
 });
 
 export const incrementCount = cache(async function (slug: string) {
-  const data = await findBySlug(slug);
+    const data = await findBySlug(slug);
 
-  await db
-    .update(urls)
-    .set({ count: data.count + 1 })
-    .where(eq(urls.slug, slug));
+    await db
+        .update(urls)
+        .set({ count: data.count + 1 })
+        .where(eq(urls.slug, slug));
 });

@@ -4,25 +4,25 @@ import { redirect } from "next/navigation";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
-  const path = new URL(request.url).pathname;
+    const path = new URL(request.url).pathname;
 
-  const slug = path.split("/").pop();
+    const slug = path.split("/").pop();
 
-  if (!slug) {
-    return new Response("Not found", {
-      status: 404,
-    });
-  }
+    if (!slug) {
+        return new Response("Not found", {
+            status: 404,
+        });
+    }
 
-  const data = await findBySlug(slug);
+    const data = await findBySlug(slug);
 
-  if (!data) {
-    return new Response("Not found", {
-      status: 404,
-    });
-  }
+    if (!data) {
+        return new Response("Not found", {
+            status: 404,
+        });
+    }
 
-  incrementCount(slug);
+    incrementCount(slug);
 
-  redirect(data.url);
+    redirect(data.url);
 }

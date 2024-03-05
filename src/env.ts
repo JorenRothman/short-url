@@ -1,10 +1,10 @@
-import { createEnv } from '@t3-oss/env-core';
-import { configDotenv } from 'dotenv';
-import path from 'path';
-import { z } from 'zod';
+import { createEnv } from "@t3-oss/env-core";
+import { configDotenv } from "dotenv";
+import path from "path";
+import { z } from "zod";
 
 configDotenv({
-    path: path.resolve(__dirname, '../.env'),
+    path: path.resolve(__dirname, "../.env"),
 });
 
 export const env = createEnv({
@@ -15,7 +15,7 @@ export const env = createEnv({
         DB_NAME: z.string(),
         DB_CONNECTION_URI: z.string(),
     },
-    clientPrefix: 'PUBLIC_',
+    clientPrefix: "PUBLIC_",
     client: {},
     runtimeEnv: process.env,
 });

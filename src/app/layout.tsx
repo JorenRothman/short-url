@@ -1,15 +1,15 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import { Toaster } from '@/components/ui/toaster';
-import Providers from '@/providers';
-import Header from '@/components/layout/header';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
+import Providers from "@/providers";
+import Header from "@/components/layout/header";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: 'Short URL',
-    description: 'A simple URL shortener',
+    title: "Short URL",
+    description: "A simple URL shortener",
 };
 
 export default function RootLayout({

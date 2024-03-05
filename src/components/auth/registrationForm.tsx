@@ -1,11 +1,12 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
-import { createUser } from '@/server/auth/methods';
-import Link from 'next/link';
-import { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
+import { createUser } from "@/server/auth/methods";
+import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 function validatePassword(password: string, confirmPassword: string) {
     return password === confirmPassword;
@@ -14,17 +15,18 @@ function validatePassword(password: string, confirmPassword: string) {
 export default function RegistrationForm() {
     const { toast } = useToast();
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const router = useRouter();
 
     async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
         if (!validatePassword(password, confirmPassword)) {
             return toast({
-                title: 'Error',
-                description: 'Passwords do not match',
+                title: "Error",
+                description: "Passwords do not match",
             });
         }
 
@@ -32,20 +34,22 @@ export default function RegistrationForm() {
 
         if (!result.success) {
             return toast({
-                title: 'Error',
+                title: "Error",
                 description: result.error,
             });
         }
 
         toast({
-            title: 'Account created',
-            description: 'You can now login',
+            title: "Account created",
+            description: "You can now login",
         });
+
+        router.push("/login");
     }
 
     return (
-        <div className="mx-auto flex flex-col gap-4 max-w-xl w-full items-center">
-            <form onSubmit={onSubmit} className="flex flex-col gap-4 w-full">
+        <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-4">
+            <form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
                 <h1 className="text-2xl">Register</h1>
                 <Input
                     type="text"
@@ -73,7 +77,7 @@ export default function RegistrationForm() {
             </form>
 
             <p>
-                Already got an account?{' '}
+                Already got an account?{" "}
                 <Link className="underline" href="/login">
                     Login
                 </Link>

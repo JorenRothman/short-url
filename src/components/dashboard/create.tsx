@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
     Drawer,
     DrawerClose,
@@ -10,17 +10,17 @@ import {
     DrawerHeader,
     DrawerTitle,
     DrawerTrigger,
-} from '@/components/ui/drawer';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useToast } from '@/components/ui/use-toast';
-import { createShortURL } from '@/server/short-url/method';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRef, useState } from 'react';
+} from "@/components/ui/drawer";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
+import { createShortURL } from "@/server/short-url/method";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRef, useState } from "react";
 
 export default function Create() {
     const closeButtonRef = useRef<HTMLButtonElement>(null);
-    const [url, setUrl] = useState('');
+    const [url, setUrl] = useState("");
     const { toast } = useToast();
 
     const queryClient = useQueryClient();
@@ -29,7 +29,7 @@ export default function Create() {
         mutationFn: createShortURL,
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ['urls'],
+                queryKey: ["urls"],
             });
         },
     });
@@ -37,8 +37,8 @@ export default function Create() {
     async function onCreateClick() {
         if (!url) {
             toast({
-                title: 'Error',
-                description: 'URL is required',
+                title: "Error",
+                description: "URL is required",
             });
             return;
         }
@@ -48,14 +48,14 @@ export default function Create() {
 
             if (result.success) {
                 toast({
-                    title: 'Short URL Created',
-                    description: 'Short URL created',
+                    title: "Short URL Created",
+                    description: "Short URL created",
                 });
 
                 closeButtonRef.current?.click();
             } else {
                 toast({
-                    title: 'Error',
+                    title: "Error",
                     description: result.error,
                 });
             }
@@ -76,7 +76,7 @@ export default function Create() {
                         </DrawerDescription>
                     </DrawerHeader>
 
-                    <div className="p-4 pb-0 mb-6">
+                    <div className="mb-6 p-4 pb-0">
                         <form onSubmit={onCreateClick}>
                             <Label className="mb-4 block" htmlFor="url">
                                 URL
