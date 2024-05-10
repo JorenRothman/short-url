@@ -5,8 +5,6 @@ import { loadEnvConfig } from "@next/env";
 const projectDir = process.cwd();
 loadEnvConfig(projectDir);
 
-console.log(process.env.DB_CONNECTION_URI);
-
 export const env = createEnv({
     server: {
         DB_CONNECTION_URI: z.string(),
