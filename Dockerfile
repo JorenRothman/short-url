@@ -18,7 +18,6 @@ WORKDIR /app
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN apk add curl
 RUN apk add --no-cache libc6-compat
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run build
@@ -27,6 +26,8 @@ RUN pnpm run migration:run
 FROM base AS runner
 
 ENV NEXT_TELEMETRY_DISABLED 1
+
+RUN apk add curl
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
