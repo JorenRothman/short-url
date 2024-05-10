@@ -12,11 +12,13 @@ RUN apk add --no-cache libc6-compat
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
 FROM base AS builder
+
 COPY . /app
 WORKDIR /app
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
+RUN apk add curl
 RUN apk add --no-cache libc6-compat
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run build
