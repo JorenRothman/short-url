@@ -1,12 +1,12 @@
 {
-  "version": "5",
-  "dialect": "mysql",
+  "version": "6",
+  "dialect": "postgresql",
   "entries": [
     {
       "idx": 0,
-      "version": "5",
-      "when": 1709670641338,
-      "tag": "0000_numerous_millenium_guard",
+      "version": "6",
+      "when": 1715357625774,
+      "tag": "0000_solid_storm",
       "breakpoints": true
     }
   ]

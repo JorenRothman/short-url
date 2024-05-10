@@ -1,10 +1,15 @@
-import { db, connection } from "@/server/db";
-import { migrate } from "drizzle-orm/mysql2/migrator";
+import { connection, migrationClient } from "@/server/db";
+import { drizzle } from "drizzle-orm/postgres-js";
+import { migrate } from "drizzle-orm/postgres-js/migrator";
 
 async function migrateDB() {
-    await migrate(db, { migrationsFolder: "./drizzle" });
+    await migrate(drizzle(migrationClient), { migrationsFolder: "./drizzle" });
 
     connection.end();
+
+    console.log("Migration completed");
+
+    process.exit();
 }
 
 migrateDB();

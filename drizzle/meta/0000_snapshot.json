@@ -1,32 +1,30 @@
 {
-  "version": "5",
-  "dialect": "mysql",
-  "id": "e7eadfa4-f405-4217-9b75-8abf8984c77a",
+  "id": "d5a66ca7-43b6-46da-96b5-c92197653c51",
   "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "sessions": {
+    "short_url.sessions": {
       "name": "sessions",
+      "schema": "short_url",
       "columns": {
         "id": {
           "name": "id",
           "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "primaryKey": true,
+          "notNull": true
         },
         "user_id": {
           "name": "user_id",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "expires_at": {
           "name": "expires_at",
-          "type": "datetime",
+          "type": "timestamp",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         }
       },
       "indexes": {},
@@ -35,6 +33,7 @@
           "name": "sessions_user_id_users_id_fk",
           "tableFrom": "sessions",
           "tableTo": "users",
+          "schemaTo": "short_url",
           "columnsFrom": [
             "user_id"
           ],
@@ -45,47 +44,37 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {
-        "sessions_id": {
-          "name": "sessions_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "urls": {
+    "short_url.urls": {
       "name": "urls",
+      "schema": "short_url",
       "columns": {
         "slug": {
           "name": "slug",
           "type": "varchar(8)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "primaryKey": true,
+          "notNull": true
         },
         "url": {
           "name": "url",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "count": {
           "name": "count",
-          "type": "int",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
           "default": 0
         },
         "user_id": {
           "name": "user_id",
           "type": "varchar(16)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         }
       },
       "indexes": {},
@@ -94,6 +83,7 @@
           "name": "urls_user_id_users_id_fk",
           "tableFrom": "urls",
           "tableTo": "users",
+          "schemaTo": "short_url",
           "columnsFrom": [
             "user_id"
           ],
@@ -104,61 +94,47 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {
-        "urls_slug": {
-          "name": "urls_slug",
-          "columns": [
-            "slug"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "urls_slug_unique": {
           "name": "urls_slug_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "slug"
           ]
         }
       }
     },
-    "users": {
+    "short_url.users": {
       "name": "users",
+      "schema": "short_url",
       "columns": {
         "id": {
           "name": "id",
           "type": "varchar(16)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "primaryKey": true,
+          "notNull": true
         },
         "username": {
           "name": "username",
           "type": "varchar(32)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "password": {
           "name": "password",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         }
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "users_id": {
-          "name": "users_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "users_username_unique": {
           "name": "users_username_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "username"
           ]
@@ -166,10 +142,13 @@
       }
     }
   },
-  "schemas": {},
+  "enums": {},
+  "schemas": {
+    "short_url": "short_url"
+  },
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
+    "tables": {}
   }
 }

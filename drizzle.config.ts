@@ -1,12 +1,12 @@
-import { env } from '@/env';
-import 'dotenv/config';
-import type { Config } from 'drizzle-kit';
+import { env } from "@/env";
+import "dotenv/config";
+import type { Config } from "drizzle-kit";
 
 export default {
-    schema: './src/schema.ts',
-    out: './drizzle',
-    driver: 'mysql2',
+    schema: "./src/schema.ts",
+    out: "./drizzle",
+    dialect: "postgresql",
     dbCredentials: {
-        uri: env.DB_CONNECTION_URI,
+        url: env.DB_CONNECTION_URI,
     },
 } satisfies Config;

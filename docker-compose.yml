@@ -1,0 +1,11 @@
+services:
+    database:
+        image: postgres:latest
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: postgres
+            PGDATA: /data/postgres
+        volumes:
+            - ./data:/data/postgres
+        ports:
+            - "5432:5432"
