@@ -5,10 +5,15 @@ ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
 FROM base AS prod-deps
+COPY . /app
+WORKDIR /app
+
 RUN apk add --no-cache libc6-compat
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
 FROM base AS builder
+COPY . /app
+WORKDIR /app
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
