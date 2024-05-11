@@ -47,5 +47,7 @@ EXPOSE 3000
 
 ENV PORT 3000
 
+ENV NODE_COMPILE_CACHE /data/compiled
+
 CMD HOSTNAME="0.0.0.0" node server.js
 
